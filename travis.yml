@@ -1,0 +1,16 @@
+language: java
+jdk:
+  - oraclejdk8
+script:
+  - "./mvnw clean verify"
+branches:
+  only:
+    - main
+deploy:
+  provider: heroku
+  api_key: $HEROKU_API_KEY
+  app: springapp
+  on:
+    repo: abrehamhub/springapp
+    branch: main
+  skip_cleanup: 'true'
