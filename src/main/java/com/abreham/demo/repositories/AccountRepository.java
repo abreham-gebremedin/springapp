@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.SQLException;
 
 /**
- * Create, Read, Update, Delete
+ * A database repository that extends Create, Read, Update and Delete Repository.
+ * It comes with built-in methods for reading from and storing to a database table.
  *
-  */
+ * @author Biniam Asnake
+ */
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Long> {
 
@@ -28,5 +30,5 @@ public interface AccountRepository extends CrudRepository<Account, Long> {
             "    pin = :pin " +
             "WHERE id = :accountId")
     void updateAccount(@Param("accountId") Long accountId, @Param("firstName") String firstName, @Param("lastName") String lastName,
-                       @Param("email") String email, @Param("phoneNumber") String phoneNumber, @Param("pin") Integer pin) throws SQLException;;
+                       @Param("email") String email, @Param("phoneNumber") String phoneNumber, @Param("pin") Integer pin) throws SQLException;
 }

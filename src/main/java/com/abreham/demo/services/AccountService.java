@@ -20,63 +20,63 @@ import java.sql.SQLException;
 @Service
 public class AccountService {
 
-    private final AccountRepository accountRepository;
+	private final AccountRepository accountRepository;
 
-    @Autowired
-    public AccountService(AccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
+	@Autowired
+	public AccountService(AccountRepository accountRepository) {
+		this.accountRepository = accountRepository;
+	}
 
-    public Iterable<Account> getAllAccounts() {
-        return accountRepository.findAll();
-    }
+	public Iterable<Account> getAllAccounts() {
+		return accountRepository.findAll();
+	}
 
-    public Account createAccount(Account account) throws Exception {
-        return accountRepository.save(account);
-    }
+	public Account createAccount(Account account) throws Exception {
+		return accountRepository.save(account);
+	}
 
-    public Account getAccountById(Long id) {
-        return accountRepository.findById(id)
-                .orElseThrow(() -> new AccountException(ACCOUNT_NOT_FOUND_EXCEPTION));
-    }
+	public Account getAccountById(Long id) {
+		return accountRepository.findById(id)
+				.orElseThrow(() -> new AccountException(ACCOUNT_NOT_FOUND_EXCEPTION));
+	}
 
-    /**
-     * Updates Account if it is available in the database
-     *
-     * @param accountId: ID of the account to be updated
-     * @param account: Account to be updated
-     * @return Nothing
-     */
-    public void updateAccount(Long accountId, Account account) throws SQLException {
+	/**
+	 * Updates Account if it is available in the database
+	 *
+	 * @param accountId: ID of the account to be updated
+	 * @param account: Account to be updated
+	 * @return Nothing
+	 */
+	public void updateAccount(Long accountId, Account account) throws SQLException {
 
-        accountRepository.updateAccount(accountId, account.getFirstName(), account.getLastName(), account.getEmail(), account.getPhoneNumber(), account.getPin());
-    }
+		accountRepository.updateAccount(accountId, account.getFirstName(), account.getLastName(), account.getEmail(), account.getPhoneNumber(), account.getPin());
+	}
 
-    /**
-     * Updates the balance of an Account if it is available in the {code}accounts{code} map
-     *
-     * @param account: Account to be updated
-     * @param newBalance: the new balance that should be saved
-     * @return The updated Account object
-     */
-    public Account updateAccountBalance(Account account, Double newBalance) {
+	/**
+	 * Updates the balance of an Account if it is available in the {code}accounts{code} map
+	 *
+	 * @param account: Account to be updated
+	 * @param newBalance: the new balance that should be saved
+	 * @return The updated Account object
+	 */
+	public Account updateAccountBalance(Account account, Double newBalance) {
 
-        if (account == null) {
-            throw new AccountException(INVALID_ACCOUNT_EXCEPTION);
-        }
+		if (account == null) {
+			throw new AccountException(INVALID_ACCOUNT_EXCEPTION);
+		}
 
-        account.setBalance(newBalance);
+		account.setBalance(newBalance);
 
-        return accountRepository.save(account);
-    }
+		return accountRepository.save(account);
+	}
 
-    public Boolean deleteById(Long accountId) {
-        try {
-            accountRepository.deleteById(accountId);
-            return Boolean.TRUE;
-        } catch(Exception e) {
-            e.printStackTrace();
-            return Boolean.FALSE;
-        }
-    }
+	public Boolean deleteById(Long accountId) {
+		try {
+			accountRepository.deleteById(accountId);
+			return Boolean.TRUE;
+		} catch(Exception e) {
+			e.printStackTrace();
+			return Boolean.FALSE;
+		}
+	}
 }

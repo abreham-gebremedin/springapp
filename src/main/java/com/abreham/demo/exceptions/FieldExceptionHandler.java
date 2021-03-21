@@ -1,4 +1,4 @@
-package com.psew.moneytransferapi.exceptions;
+package com.abreham.demo.exceptions;
 
 import java.util.HashMap;
 import java.util.Map;
